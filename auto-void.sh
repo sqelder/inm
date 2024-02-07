@@ -4,7 +4,7 @@
 # Date: 25-09-2023
 
 # IMPORTANT: Change this variable to your username.
-username=lyes
+username=sm
 
 # Enable multilib and nonfree repositories and update
 echo "Adding multilib and nonfree support, syncing repos, and updating packages"
@@ -17,16 +17,16 @@ xbps-install -Sy
 # Install GPU drivers based on your hardware
 echo "Installing GPU drivers"
 # Intel
-xbps-install -y mesa-dri intel-video-accel
+# xbps-install -y mesa-dri intel-video-accel
 # Uncomment and modify the following lines for AMD and NVIDIA:
 # AMD
-# xbps-install -y mesa-dri mesa-vaapi mesa-vdpau
+xbps-install -y mesa-dri mesa-vaapi mesa-vdpau
 # NVIDIA
 # xbps-install -y mesa-dri nvidia nvidia-libs-32bit
 
 # Install microcode updates for Intel CPUs
-echo "Installing intel-ucode"
-xbps-install -y intel-ucode
+#echo "Installing intel-ucode"
+#xbps-install -y intel-ucode
 xbps-reconfigure -f linux-$(uname -r)
 
 # Setting up seatd (Skip if using a systemd-based distro)
@@ -100,30 +100,30 @@ xbps-install -y mako libnotify
 echo "Installing File manager"
 xbps-install -y unzip p7zip unrar
 xbps-install -y nnn
-# xbps-install -y pcmanfm-qt ffmpegthumbnailer lxqt-archiver
+xbps-install -y pcmanfm-qt ffmpegthumbnailer lxqt-archiver
 
 # Install dependencies for Librewolf AppImage (if needed)
-# xbps-install -y qt5-wayland dbus-glib
+xbps-install -y qt5-wayland dbus-glib
 
 # Install Theme and Cursor Themes
 echo "Installing Theme and Cursor Themes"
 xbps-install -y breeze-gtk breeze-icons breeze-snow-cursor-theme qt5ct
 
 # Install Flatpak (Optional)
-# xbps-install -y flatpak
-# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+xbps-install -y flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Set up NFS (Optional)
 # echo "Setting up NFS"
-# xbps-install -y nfs-utils
+xbps-install -y nfs-utils
 
 # IMPORTANT: Modify these export options if necessary for your setup.
 #echo "/home/$username 192.168.100.15/255.255.255.0(rw,async,no_subtree_check,anonuid=1000,anongid=1000) 192.168.100.11/255.255.255.0(rw,async,no_subtree_check,anonuid=1000,anongid=1000)" >> /etc/exports
 #echo "/media/ST500 192.168.100.15/255.255.255.0(rw,async,no_subtree_check,anonuid=1000,anongid=1000) 192.168.100.11/255.255.255.0(rw,async,no_subtree_check,anonuid=1000,anongid=1000)" >> /etc/exports
 
 # Set up VPN (Optional)
-echo "Setting up VPN"
-xbps-install -y wireguard
+#echo "Setting up VPN"
+#xbps-install -y wireguard
 
 ln -s /etc/sv/rpcbind /var/service/
 ln -s /etc/sv/statd /var/service/
@@ -166,6 +166,6 @@ ln -s /etc/sv/dbus /var/service
 
 # Uncomment and configure sudo if needed
 # su
-# echo "%wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/halt, /usr/bin/poweroff, /usr/bin/reboot, /usr/bin/shutdown, /usr/bin/zzz, /usr/bin/ZZZ" >> /etc/sudoers.d/wheel
+echo "%wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/halt, /usr/bin/poweroff, /usr/bin/reboot, /usr/bin/shutdown, /usr/bin/zzz, /usr/bin/ZZZ" >> /etc/sudoers.d/wheel
 
 echo "Post-installation script completed."
